@@ -1,0 +1,23 @@
+name: PS WinRM
+version: 0.1
+rundeckPluginVersion: 1.0
+author: mikhail.zaikin
+date: 2015-12-23
+providers:
+  - name: ps-winrm-fc
+    title: PS WinRM
+    service: FileCopier
+    plugin-type: script
+    script-interpreter: powershell.exe -File
+    script-file: ps-file-copier.ps1
+    script-args: >
+      -hostname '${node.hostname}' -username '${node.username}' -password '${config.winrmPassword}' -src '${file-copy.file}'
+    config:
+      - name: winrmPassword
+        title: WinRM password storage key
+        type: String
+        required: true
+        scope: Project
+        renderingOptions:
+          selectionAccessor: STORAGE_PATH
+          valueConversion: STORAGE_PATH_AUTOMATIC_READ

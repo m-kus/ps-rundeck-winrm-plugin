@@ -6,10 +6,10 @@ Param
 	[string]$src
 )
 
-$pw = convertto-securestring -AsPlainText -Force -String $password
-$cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $username,$pw
-$option = new-pssessionoption -SkipRevocationCheck -SkipCACheck
-$session = new-pssession -connectionuri "https://$hostname" -credential $cred -sessionoption $option
+$pw = ConvertTo-SecureString -AsPlainText -Force -String $password
+$cred = New-Object -Typename System.Management.Automation.PSCredential -Argumentlist $username,$pw
+$option = New-PSSessionOption -SkipRevocationCheck -SkipCACheck
+$session = New-PSSession -ConnectionUri "https://$hostname" -Credential $cred -SessionOption $option
 
 $dstPath = "C:\Users\$username\rundeck-file-copier\"
 $dst = $dstPath + [guid]::NewGuid() + [System.IO.Path]::GetExtension($src)
@@ -19,8 +19,8 @@ Write-Host $dst
 
 $sourceBytes = [System.IO.File]::ReadAllBytes($src);
 $streamChunks = @();
-
 $streamSize = 1MB;
+
 for ($position = 0; $position -lt $sourceBytes.Length; $position += $streamSize)
 {
 	$remaining = $sourceBytes.Length - $position
@@ -30,16 +30,15 @@ for ($position = 0; $position -lt $sourceBytes.Length; $position += $streamSize)
 	[Array]::Copy($sourcebytes, $position, $nextChunk, 0, $remaining)
 	$streamChunks +=, $nextChunk
 }
+
 $remoteScript = {
-	if (-not (Test-Path -Path $using:dstPath -PathType Container))
-	{
+	if (-not (Test-Path -Path $using:dstPath -PathType Container)) {
 		$null = New-Item -Path $using:dstPath -Type Directory -Force
 	}
 	$destBytes = New-Object byte[] $using:length
 	$position = 0
 	
-	foreach ($chunk in $input)
-	{
+	foreach ($chunk in $input) {
 		[GC]::Collect()
 		[Array]::Copy($chunk, 0, $destBytes, $position, $chunk.Length)
 		$position += $chunk.Length

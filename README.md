@@ -16,7 +16,7 @@ Just create a zip archive of ps-rundeck-winrm-plugin folder and place in `%RUNDE
 
 ### Limitations
 * Plugin replaces `bat` with `ps1` extension to support powershell scripts
-* SSL is used by default, remote node cert should be in rundeck trust store (`%RUNDECK_ROOT%/etc/profile`) or in other keystore, passed by java argument, for instance, by service wrapper (`wrapper.java.additional=-Djavax.net.ssl.trustStore=%PATH_TO_KEYSTORE%`)
-* Authentication type is Default (Can changed by passing `Authentication` argument to `New-PSSession` cmdlet)
+* SSL is used by default, remote node certificate should be installed on local machine
+* Authentication type is default
 
 Pull requests are welcome!

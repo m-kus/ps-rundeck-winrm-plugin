@@ -10,8 +10,9 @@ Just create a zip archive of ps-rundeck-winrm-plugin folder and place in `%RUNDE
 2. Configure your project -> Simple Configuration -> set password storage key
 
 ### Requirements
+* WinRM should be configured correctly both on local and remote node (see https://github.com/xebialabs/overthere/#winrm-winrm_internal-and-winrm_native)
 * Rundeck should run on Windows host with Powershell 3+
-* Execution policy both on server and remote node should be 'Unrestricted', or you can sign scripts, if needed higher secure level
+* Powershell execution policy both on server and remote node should be `Unrestricted`, or you can sign scripts, if needed higher secure level
 * Remote user (on remote node) should be in 'Remote Management Users' group
 
 ### Limitations

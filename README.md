@@ -20,4 +20,7 @@ Just create a zip archive of ps-rundeck-winrm-plugin folder and place in `%RUNDE
 * SSL is used by default, remote node certificate should be installed on local machine
 * Authentication type is default
 
+### Tips
+* If you're running rundeck on windows host, you can use winrs as node executor. Select script-exec in project configuration and set command to `winrs /r:https://${node.hostname} /u:${node.username} /p:${node.password} ${exec.command}`. All preferences you can set via `winrm set winrm/config/*`
+
 Pull requests are welcome!

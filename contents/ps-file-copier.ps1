@@ -1,3 +1,4 @@
+# using code from https://gallery.technet.microsoft.com/scriptcenter/Send-Files-or-Folders-over-273971bf
 Param
 (
 	[string]$hostname,

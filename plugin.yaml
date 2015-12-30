@@ -8,7 +8,7 @@ providers:
     title: PS WinRM
     service: FileCopier
     plugin-type: script
-    script-interpreter: powershell.exe -File
+    script-interpreter: powershell.exe -NoProfile -File
     script-file: ps-file-copier.ps1
     script-args: >
       -hostname '${node.hostname}' -username '${node.username}' -password '${config.winrmPassword}' -src '${file-copy.file}'

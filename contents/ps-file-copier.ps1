@@ -4,7 +4,8 @@ Param
 	[string]$hostname,
 	[string]$username,
 	[string]$password,
-	[string]$src
+	[string]$src,
+	[string]$dst
 )
 
 $pw = ConvertTo-SecureString -AsPlainText -Force -String $password
@@ -12,9 +13,11 @@ $cred = New-Object -Typename System.Management.Automation.PSCredential -Argument
 $option = New-PSSessionOption -SkipRevocationCheck -SkipCACheck
 $session = New-PSSession -ConnectionUri "https://$hostname" -Credential $cred -SessionOption $option
 
-$dstPath = "C:\Users\$username\rundeck-file-copier\"
-$dst = $dstPath + [guid]::NewGuid() + [System.IO.Path]::GetExtension($src)
-$dst = $dst.Replace(".bat", ".ps1")
+if (-not $dst) {
+	$dstPath = "C:\Users\$username\rundeck-file-copier\"
+	$dst = $dstPath + [guid]::NewGuid() + [System.IO.Path]::GetExtension($src)
+	$dst = $dst.Replace(".bat", ".ps1")
+}
 
 Write-Host $dst
 

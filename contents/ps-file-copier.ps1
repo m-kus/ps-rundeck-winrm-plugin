@@ -19,7 +19,7 @@ if (-not $dst) {
 	$dst = $dst.Replace(".bat", ".ps1")
 } else {
 	$dstPath = "C:\Users\$username\artifacts\"
-	$dst = $dstPath + [System.IO.Path]::GetFileName($src)
+	$dst = $dstPath + $dst
 }
 
 Write-Host $dst

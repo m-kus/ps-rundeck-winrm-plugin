@@ -17,6 +17,9 @@ if (-not $dst) {
 	$dstPath = "C:\Users\$username\rundeck-file-copier\"
 	$dst = $dstPath + [guid]::NewGuid() + [System.IO.Path]::GetExtension($src)
 	$dst = $dst.Replace(".bat", ".ps1")
+} else {
+	$dstPath = "C:\Users\$username\artifacts\"
+	$dst = $dstPath + [System.IO.Path]::GetFileName($src)
 }
 
 Write-Host $dst
